@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Kurs Predict</string>
+    <string name="title_home">Home</string>
+    <string name="title_model">Model</string>
+    <string name="title_fitur">Fitur</string>
+    <string name="title_predict">Prediksi</string>
+    <string name="about_title">Tentang Aplikasi</string>
+    <string name="prediksi_title">Prediksi Nilai Tukar</string>
+    <string name="btn_mulai_prediksi">Mulai Prediksi</string>
+    <string name="chart_desc">Grafik hasil prediksi nilai tukar</string>
+    <string name="prediksi_hari_ini">Prediksi Kurs Hari Ini:</string>
+    <string name="dataset">
+    Dataset ini diambil dari Yahoo Finance dengan pasangan mata uang USD/IDR, yang merepresentasikan nilai tukar antara Dolar Amerika dan Rupiah Indonesia. Dataset ini terdiri dari beberapa kolom penting seperti Tanggal, Open, High, Low, Close, Adjusted Close, dan Volume. Data ini digunakan sebagai input model LSTM untuk melakukan prediksi nilai tukar ke depan. Pemilihan data selama 1 tahun terakhir bertujuan agar model mampu mengenali pola musiman dan fluktuasi jangka pendek maupun jangka panjang. Data ini sangat penting dalam konteks analisis ekonomi, pengambilan keputusan investasi, serta sebagai alat bantu pembelajaran machine learning di bidang finansial.
+</string>
+
+
+    <string name="fitur"> 1. Close (Harga Penutupan)</string>
+    <string name="tipedata">Tipe Data : Float32\nBentuk Nilai Fitur: Numerik</string>
+    <string name="deskripsi">Harga close adalah nilai tukar USD terhadap IDR pada akhir hari perdagangan.
+        Data ini digunakan sebagai acuan utama dalam proses prediksi karena menggambarkan nilai akhir yang dianggap paling relevan oleh pasar.</string>
+    <string name="about_description">
+        Aplikasi ini bertujuan untuk memprediksi nilai tukar Rupiah (IDR) terhadap Dolar Amerika (USD) menggunakan model machine learning berbasis Recurrent Neural Network (RNN).
+        \nDengan memanfaatkan data historis kurs dari Yahoo Finance, aplikasi ini membantu pengguna, investor, dan pelaku bisnis dalam:
+        \n• Memahami arah pergerakan kurs.
+        \n• Mengambil keputusan keuangan yang lebih akurat.
+        \nAplikasi ini dirancang sebagai alat bantu dalam pengambilan keputusan keuangan berbasis data.
+    </string>
+    <string name="dataset_title">Dataset</string>
+    <string name="link_yahoo">https://finance.yahoo.com/quote/IDR=X/</string>
+    <string name="dataset_description">
+        Dataset diambil dari Yahoo Finance : \nhttps://finance.yahoo.com/quote/IDR=X/.
+    </string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="arsitektur">Model yang digunakan adalah Recurrent Neural Network (RNN) dengan arsitektur Long Short-Term Memory (LSTM), dirancang untuk memproses data time series kurs mata uang.
+        Model ini memprediksi kurs IDR terhadap USD selama 180 hari ke depan menggunakan library Tensorflow berdasarkan data historis 60 hari sebelumnya yang telah dilatih.</string>
+    <string name="preparation">Setelah dinormalisasi, data diubah menjadi bentuk urutan (sequence) menggunakan teknik sliding window.
+        Ini dilakukan dengan cara mengambil sejumlah data sebelumnya sebagai input (misalnya 60 data terakhir) dan sejumlah data setelahnya sebagai target prediksi (misalnya 180 data ke depan).
+        Proses ini penting untuk model time-series seperti LSTM, karena model perlu memahami pola dalam urutan waktu agar bisa memprediksi nilai di masa depan secara tepat.</string>
+    <string name="normalisasi">Bagian ini digunakan untuk menormalkan data agar berada pada skala antara 0 hingga 1 menggunakan MinMaxScaler. Normalisasi penting dilakukan karena algoritma seperti neural network sangat sensitif terhadap skala data—jika nilainya terlalu besar atau kecil, proses pelatihan bisa jadi tidak stabil atau lambat.
+        Dengan menyesuaikan skala semua nilai, model bisa belajar lebih cepat dan akurat.</string>
+    <string name="modeling">Arsitektur model terdiri dari dua layer LSTM dan satu layer Dense. Layer pertama adalah LSTM dengan 50 unit dan return_sequences=True, yang menerima input berukuran (60, 1), yaitu 60 langkah waktu dengan satu fitur di setiap langkah.
+        Output dari layer ini berbentuk (60, 50), menandakan bahwa setiap langkah waktu menghasilkan 50 fitur. Layer kedua adalah LSTM dengan 50 unit juga, namun tanpa return_sequences, sehingga hanya menghasilkan output akhir dari urutan sebelumnya dalam bentuk vektor berdimensi 50.
+        Terakhir, layer Dense digunakan untuk memproyeksikan output LSTM ke dalam prediksi sebanyak 180 langkah ke depan (sesuai nilai n_forecast), dengan output berukuran (180).
+    </string>
+    <string name="mse"> Pada baris pertama, model dikompilasi dengan menggunakan fungsi mean squared error (MSE) dan optimizer adam.
+        MSE digunakan untuk mengukur seberapa besar perbedaan antara nilai prediksi dan nilai sebenarnya, yang sangat umum digunakan dalam masalah regresi.
+        Optimizer adam dipilih karena mampu mempercepat proses pelatihan dengan menggabungkan kelebihan dari algoritma RMSProp dan momentum.
+        Selanjutnya, model dilatih menggunakan fungsi fit() dengan data input X dan target Y.
+        Pelatihan dilakukan selama 100 epoch, artinya data akan diproses sebanyak 100 kali secara penuh.
+        Setiap iterasi pelatihan dilakukan dalam kelompok kecil (mini-batch) berisi 32 data, sesuai dengan nilai batch_size.
+        Selain itu, 10% dari data pelatihan digunakan sebagai data validasi, yang berfungsi untuk memantau performa model terhadap data yang tidak dilatih secara langsung.
+        Tujuannya adalah untuk mencegah overfitting dan membantu mengevaluasi kemampuan generalisasi model</string>
+    <string name="latih"> untuk mempersiapkan data input dan menghasilkan prediksi dari model LSTM yang telah dilatih sebelumnya.
+        Baris pertama mengambil sejumlah data terakhir dari urutan deret waktu sebanyak n_lookback langkah, yang akan digunakan sebagai input untuk prediksi selanjutnya.
+        Data tersebut kemudian di-reshape menjadi bentuk (1, n_lookback, 1) agar sesuai dengan bentuk input yang dibutuhkan oleh model LSTM, yaitu satu batch, dengan sejumlah langkah waktu (n_lookback), dan satu fitur per langkah.
+        Setelah data siap, model melakukan prediksi terhadap input tersebut, dan hasil prediksi diubah bentuknya menjadi dua dimensi dengan satu kolom menggunakan reshape(-1, 1).
+        Langkah terakhir adalah mengembalikan hasil prediksi dari bentuk yang telah dinormalisasi ke skala aslinya menggunakan scaler.inverse_transform(), agar hasilnya dapat dimaknai dalam satuan yang sebenarnya (nilai tukar).
+        Proses ini memungkinkan pengguna untuk melihat nilai prediksi yang realistis berdasarkan pola data historis terakhir.</string>
+</resources>

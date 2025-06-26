@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.kurspredict.ui.splash.SplashScreenFragment"
+        android:label="Splash Screen"
+        tools:layout="@layout/fragment_splash_screen">
+
+        <action
+            android:id="@+id/action_splashScreenFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.kurspredict.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_dataset"
+        android:name="com.example.kurspredict.ui.dataset.DatasetFragment"
+        android:label="Prediksi"
+        tools:layout="@layout/fragment_dataset" />
+    <fragment
+        android:id="@+id/navigation_fitur"
+        android:name="com.example.kurspredict.ui.fitur.FiturFragment"
+        android:label="@string/title_fitur"
+        tools:layout="@layout/fragment_fitur" />
+    <fragment
+        android:id="@+id/navigation_model"
+        android:name="com.example.kurspredict.ui.model.ModelFragment"
+        android:label="@string/title_model"
+        tools:layout="@layout/fragment_model" />
+    <fragment
+        android:id="@+id/navigation_predict"
+        android:name="com.example.kurspredict.ui.prediksi.PrediksiFragment"
+        android:label="Prediksi"
+        tools:layout="@layout/fragment_prediksi" />
+</navigation>
